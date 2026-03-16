@@ -1,16 +1,15 @@
-.iframe-wrapper {
-    position: relative;
-    width: 600px;
-    height: 300px;
-    overflow: hidden;
-    border: 3px solid green;
-    margin: auto;
+#machine-wrapper {
+    
 }
 
-iframe {
-    position: absolute;
-    top: -220px;
-    left: 300px;
-    width: 600px;
-    height: 1000px;
+#machine {
+    width: 300px;
+    display: block;
+    margin: auto;
+
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#machine:active {
+    transform: scaleY(0.5);
 }
