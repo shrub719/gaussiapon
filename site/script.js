@@ -20,7 +20,20 @@ machine.addEventListener("mouseup", () => {
 
 function getPage() {
     page = pages[Math.floor(Math.random() * pages.length)];
-    result.innerHTML = `<a href="${URL}/${page.id}.html" target="_blank">${page.title}</a>`;
+    result.textContent = "";
+
+    const title = document.createElement("a");
+    title.innerText = page.title;
+    title.href = `${URL}/${page.id}.html`;
+    title.target = "_blank";
+    result.appendChild(title);
+
+    if (page.img) {
+        console.log("img");
+        const img = document.createElement("img");
+        img.src = `${URL}/${page.img}`;
+        result.appendChild(img);
+    }
 }
 
 machine.addEventListener("click", () => {

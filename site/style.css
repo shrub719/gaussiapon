@@ -20,4 +20,10 @@
     font: 30px bold serif;
     text-align: center;
 }
+#result img {
+    padding: 30px;
+    width: 200px;
+    display: block;
+    margin: auto;
+}
 
