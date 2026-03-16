@@ -22,6 +22,11 @@ def parse_letter(href, f):
     for a in soup.select("ul.topics-list li a"):
         parse_page(a.get("href"), f)
 
+def clean(s):
+    return ( s
+        .replace("\"", "&quot;")
+    )
+
 def parse_page(href, f):
     print(" ", href)
 
@@ -37,8 +42,9 @@ def parse_page(href, f):
 
     desc = ""
     desc_text = ""
+    # what about "see also"s?
     if ps: 
-        inner = str(ps[0].encode_contents())
+        inner = str(ps[0].encode_contents())[2:][:-1]
         sentence_count = 0
         for char in inner:
             desc += char
@@ -52,12 +58,13 @@ def parse_page(href, f):
             if len(desc_text) >= 2 and desc_text[-2:] == ". ": sentence_count += 1
             if sentence_count >= 2: break
 
-        desc = ( desc
+        desc = clean(desc
             .replace('src="/', 'src="' + URL + '/')
             .replace('href="/', 'href="' + URL + '/')
             .replace("\n", "")
+            .replace("\\n", "")
         )
-        desc_text = desc_text.replace("\n", "")
+        desc_text = clean(desc_text.replace("\n", ""))
 
     img_src = ""
     if imgs:
@@ -67,7 +74,7 @@ def parse_page(href, f):
     if crumbs:
         categories = list(set(crumb.text.replace("\n", "") for crumb in crumbs))
 
-    f.write(f'{{ id: "{id}", title: "{title}", desc: """{desc}""", descText: """{desc_text}""", img: "{img_src}", categories: {str(categories)} }},\n')
+    f.write(f'{{ id: "{id}", title: "{title}", desc: "{desc}", descText: "{desc_text}", img: "{img_src}", categories: {str(categories)} }},\n')
     f.flush()
 
 def parse_page_simple(href, text, f):
