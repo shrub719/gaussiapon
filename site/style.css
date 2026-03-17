@@ -1,6 +1,14 @@
-#machine-wrapper {
+#wrapper {
     position: relative;
     padding: 30px;
+}
+
+#tokens {
+    padding-top: 30px;
+    text-align: center;
+}
+#tokens img {
+    width: 80px;
 }
 
 #machine {
@@ -11,7 +19,6 @@
     z-index: 2;
     transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
 #machine.squish {
     transform: scaleY(0.5);
 }
@@ -37,7 +44,6 @@
     z-index: 1;
     transform: translateX(-50%);
 }
-
 #ball.move {
     top: 520px;
     transition: top 0.5s cubic-bezier(0.11, 0, 0.5, 0);
@@ -52,7 +58,6 @@
     transform: translateX(-50%);
     display: none;
 }
-
 #explosion.explode {
     display: block;
 }

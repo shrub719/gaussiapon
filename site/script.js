@@ -1,22 +1,34 @@
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 const URL = "https://mathworld.wolfram.com";
 
 const machine = document.getElementById("machine");
 const result = document.getElementById("result");
 const ball = document.getElementById("ball");
 const explosion = document.getElementById("explosion");
-
-let pages = {};
+const tokens = document.getElementById("tokens");
 
 machine.ondragstart = () => false;
 
-const delay = ms => new Promise(res => setTimeout(res, ms));
-
-let inProgress = false;
-
+let pages = {};
 // are you really gonna load that each time....
 fetch("assets/pages.json")
     .then(response => response.json())
     .then(data => { pages = data; })
+
+let tokensLeft = 3;
+
+let inProgress = false;
+
+async function updateTokens() {
+    tokens.innerText = "";
+    
+    for (let i=0; i<tokensLeft; i++) {
+        const token = document.createElement("img");
+        token.src = "./assets/token.gif";
+        tokens.appendChild(token);
+    }
+}
 
 async function getPage() {
     page = pages[Math.floor(Math.random() * pages.length)];
@@ -38,8 +50,12 @@ async function getPage() {
 async function machineClick() {
     // TODO: check if can pull
     if (inProgress) { return }
+    if (tokensLeft <= 0) { return }
 
     inProgress = true;
+
+    tokensLeft -= 1;
+    updateTokens();
 
     machine.classList = ["squish"];
     ball.classList = ["move"];
@@ -67,3 +83,4 @@ async function machineClick() {
 
 machine.addEventListener("mousedown", machineClick);
 
+updateTokens();
