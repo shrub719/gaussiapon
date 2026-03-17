@@ -26,6 +26,23 @@ let collection = JSON.parse(
 
 let inProgress = false;
 
+function getDate() {
+    const now = new Date();
+    return now.toISOString().split("T")[0];
+}
+
+function checkRefresh() {
+    const lastRefresh = localStorage.getItem("gacha:refresh");
+    const today = getDate();
+
+    if (lastRefresh !== today) {
+        tokensLeft = 3;
+        localStorage.setItem("gacha:refresh", today);
+    }
+
+    updateTokens();
+}
+
 async function updateTokens() {
     tokens.innerText = "";
 
@@ -104,4 +121,5 @@ async function machineClick() {
 
 machine.addEventListener("mousedown", machineClick);
 
-updateTokens();
+checkRefresh();
+
