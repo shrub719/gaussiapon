@@ -1,3 +1,5 @@
+// TODO: probably use IndexedDB instead
+
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const URL = "https://mathworld.wolfram.com";
