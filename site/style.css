@@ -6,6 +6,7 @@
 #tokens {
     padding-top: 30px;
     text-align: center;
+    font: 20px serif;
 }
 #tokens img {
     width: 80px;
@@ -25,7 +26,7 @@
 
 #result {
     padding: 30px;
-    font: 30px bold serif;
+    font: 30px serif;
     text-align: center;
 }
 #result img {
@@ -37,7 +38,7 @@
 }
 
 #collection-link {
-    font: 20px bold serif;
+    font: 20px serif;
     text-align: center;
     display: block;
     margin: auto;
