@@ -1,3 +1,5 @@
+const URL = "https://mathworld.wolfram.com";
+
 const collection = document.getElementById("collection");
 
 let collection_json = JSON.parse(
