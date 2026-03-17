@@ -36,6 +36,13 @@
     border: 1px solid blue;
 }
 
+#collection-link {
+    font: 20px bold serif;
+    text-align: center;
+    display: block;
+    margin: auto;
+}
+
 #ball {
     width: 100px;
     position: absolute;

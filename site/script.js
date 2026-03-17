@@ -16,17 +16,36 @@ fetch("assets/pages.json")
     .then(response => response.json())
     .then(data => { pages = data; })
 
-let tokensLeft = 3;
+let tokensLeft = parseInt(
+    localStorage.getItem("gacha:tokens") ?? "3"
+);
+
+let collection = JSON.parse(
+    localStorage.getItem("gacha:collection") ?? "[]"
+);
 
 let inProgress = false;
 
 async function updateTokens() {
     tokens.innerText = "";
+
+    localStorage.setItem("gacha:tokens", tokensLeft);
     
     for (let i=0; i<tokensLeft; i++) {
         const token = document.createElement("img");
         token.src = "./assets/token.gif";
         tokens.appendChild(token);
+    }
+
+    if (tokensLeft == 0) {
+        tokens.innerText = "Tokens refresh daily";
+    }
+}
+
+async function addToCollection(page) {
+    if (!(collection.some(element => element.id === page.id))) {
+        collection.push(page);
+        localStorage.setItem("gacha:collection", JSON.stringify(collection));
     }
 }
 
@@ -45,6 +64,8 @@ async function getPage() {
         img.src = `${URL}/${page.img}`;
         result.appendChild(img);
     }
+
+    addToCollection(page);
 }
 
 async function machineClick() {
@@ -54,7 +75,7 @@ async function machineClick() {
 
     inProgress = true;
 
-    tokensLeft -= 1;
+    tokensLeft -= 1;    // why can you do this. gross
     updateTokens();
 
     machine.classList = ["squish"];
